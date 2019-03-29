@@ -3,6 +3,10 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     userName: {
       type: DataTypes.STRING,
+      unique: {
+          args: true,
+          msg: 'Username must be unique.',
+      },
       validate: {
           isAlphanumeric: true,
           len: {
@@ -18,7 +22,12 @@ module.exports = (sequelize, DataTypes) => {
             isEmail: true
         }
     },
-    password: DataTypes.STRING,
+    password: {
+        type: DataTypes.STRING,
+        validate: {
+            notEmpty: true
+        }
+    },
     isAdmin: DataTypes.BOOLEAN
   },
   {
